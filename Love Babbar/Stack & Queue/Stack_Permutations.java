@@ -16,6 +16,8 @@ public class Stack_Permutations {
             y++;
         }
     }
-    
+    if(S.isEmpty())
+        System.out.println("True");
     }
+    System.out.println("False");
 }
