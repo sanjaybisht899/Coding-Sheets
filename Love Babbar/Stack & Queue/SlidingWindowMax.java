@@ -6,15 +6,24 @@ import java.util.*;
 public class SlidingWindowMax {
     static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
         ArrayList<Integer> max = new ArrayList<>();
-        Queue <Integer> q = new LinkedList<>();
+        ArrayDeque <Integer> q = new ArrayDeque<>();
         for(int i=0;i<k;i++){
-            while(!q.isEmpty() && arr[q.peek()]<arr[i]){
-                q.poll();
+            while(!q.isEmpty() && arr[q.peekLast()]<=arr[i]){
+                q.removeLast();
             }
-            q.add(i);
+            q.addLast(i);
         }
-        System.out.println(q);
-
+        for(int i=k;i<n;i++){
+            max.add(arr[q.peek()]);
+            while(!q.isEmpty() && q.peek()<=i-k){
+                q.removeFirst();
+            }
+            while(!q.isEmpty() && arr[q.peekLast()]<=arr[i]){
+                q.removeLast();
+            }
+            q.addLast(i);
+        }
+        max.add(arr[q.peek()]);
         return max;
     }
     public static void main(String[] args) {
